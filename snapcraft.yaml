@@ -5,6 +5,7 @@ summary: CLI tools for working with SARIF files
 description: |
   A set of Python command line tools for working with SARIF files produced by
   code analysis tools
+license: MIT
 
 grade: stable
 confinement: strict
