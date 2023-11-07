@@ -1,0 +1,32 @@
+name: sarif-tools
+base: core22
+version: 1.0.0
+summary: CLI tools for working with SARIF files
+description: |
+  A set of Python command line tools for working with SARIF files produced by
+  code analysis tools
+
+grade: stable
+confinement: strict
+
+apps:
+  sarif:
+    command: bin/sarif
+    environment:
+      PYTHONPATH: $SNAP/lib/python3.10/site-packages
+    plugs:
+      - home
+
+parts:
+  sarif-tools:
+    plugin: python
+    source: https://github.com/microsoft/sarif-tools.git
+    source-tag: v$SNAPCRAFT_PROJECT_VERSION
+    build-packages:
+      - python3-poetry
+    stage-packages:
+        - python3-venv
+    override-build: |
+      craftctl default
+      pip install .
+      sed -i 's|'"$SNAPCRAFT_PART_INSTALL"'||' $SNAPCRAFT_PART_INSTALL/bin/sarif
